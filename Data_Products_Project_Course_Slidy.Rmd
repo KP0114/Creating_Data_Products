@@ -1,0 +1,51 @@
+---
+title: "Coursera Developing Data Products - Project Course"
+author: "Kevin Heroux-Prescott"
+date: "11/1/2022"
+output:
+  slidy_presentation:
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+This presentation is part of the assignment for week 4 of *Developing Data Products course from Coursera* (https://www.coursera.org/learn/data-products). It is meant to describe and pitch information about an app developed through Shiny to help estimate 2022 income tax for workers based in the province of Quebec, Canada.
+
+## Application
+
+The application can be found at the following link and is was published using *shiniyapps.io* : https://l9ahq8-kevin-heroux0prescott.shinyapps.io/week_4_assignment/
+
+It allows the user to calculate estimated income tax for fiscal year 2022 using the worker's salary as sole input.
+
+## Example R Code
+
+Using informations from the two governmental bodies, applicable tax rates were coded to calculate income tax based on salary input
+Using a salary of $100,000 CAD to demonstrate :
+
+```{r ex_tax, echo = TRUE}
+  
+  Salary <- 100000
+
+  Federal_Tax <-  0.150*min(Salary,45105) + 
+                  0.200*min(max(Salary-45105,0),45095) + 
+                  0.240*min(max(Salary-90200,0),19555) +
+                  0.2575*max(Salary-109755,0)
+  
+  Provincial_Tax <- 0.150*min(Salary,50197) + 
+                    0.205*min(max(Salary-50197,0),50195) + 
+                    0.260*min(max(Salary-100392,0),55233) +
+                    0.290*min(max(Salary-155625,0),66083) + 
+                    0.330*max(Salary-221708,0)
+  
+  result <- Federal_Tax + Provincial_Tax
+  result
+  
+```
+
+## Conclusion
+This app can be used to estimate income tax for the current fisacl year, but is in no way a trusted resource to produce your tax returns. Please consult an expert.. The github repository containing the Shiny programs (ui.R and server.R) is found here:
+https://github.com/KP0114/Creating_Data_Products
